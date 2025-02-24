@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="100" y="100" width="400" height="300" rx="8" fill="white" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="100" y="100" width="400" height="40" rx="8" fill="#F1F5F9"/>
+  <circle cx="130" cy="120" r="6" fill="#EF4444"/>
+  <circle cx="155" cy="120" r="6" fill="#F59E0B"/>
+  <circle cx="180" cy="120" r="6" fill="#10B981"/>
+  
+  <rect x="120" y="160" width="160" height="10" rx="2" fill="#E2E8F0"/>
+  <rect x="120" y="180" width="200" height="10" rx="2" fill="#E2E8F0"/>
+  <rect x="120" y="200" width="140" height="10" rx="2" fill="#E2E8F0"/>
+  
+  <rect x="320" y="160" width="160" height="120" rx="4" fill="#3B82F6" fill-opacity="0.1"/>
+  <rect x="340" y="180" width="120" height="80" rx="4" fill="#3B82F6" fill-opacity="0.2"/>
+  
+  <path d="M150 450 C 150,400 450,400 450,450" stroke="#3B82F6" stroke-width="2"/>
+  <circle cx="150" cy="450" r="8" fill="#3B82F6"/>
+  <circle cx="300" cy="420" r="8" fill="#3B82F6"/>
+  <circle cx="450" cy="450" r="8" fill="#3B82F6"/>
+  
+  <rect x="200" y="300" width="200" height="40" rx="20" fill="#3B82F6"/>
+  <text x="240" y="325" fill="white" font-family="Arial" font-size="16">Get Started</text>
+</svg>

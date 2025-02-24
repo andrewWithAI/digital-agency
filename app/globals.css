@@ -4,18 +4,146 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2563eb;
+  --max-width-container: 1280px;
+  --padding-container: 2rem;
+  
+  /* RGB values for navbar gradient */
+  --primary-rgb: 37, 99, 235;
+  --primary-light-rgb: 59, 130, 246;
+  --secondary-rgb: 99, 102, 241;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f172a;
+    --foreground: #f8fafc;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply text-gray-dark bg-background;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold text-primary;
+  }
+
+  h1 {
+    @apply text-h1 mb-6;
+  }
+
+  h2 {
+    @apply text-h2 mb-5;
+  }
+
+  h3 {
+    @apply text-h3 mb-4;
+  }
+
+  h4 {
+    @apply text-h4 mb-4;
+  }
+
+  h5 {
+    @apply text-h5 mb-3;
+  }
+
+  h6 {
+    @apply text-h6 mb-3;
+  }
+
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary-dark;
+  }
+
+  .btn-secondary {
+    @apply btn bg-secondary text-white hover:bg-secondary-dark;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  }
+
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-section;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-dark p-6 rounded-lg shadow-card hover:shadow-card-hover transition-shadow duration-200;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-light/20;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 rounded-full hover:bg-primary/70 transition-colors;
+}
+
+/* Form styles */
+@layer components {
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-light focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors;
+  }
+
+  .form-input-error {
+    @apply border-red-300 focus:border-red-400 focus:ring-red-200;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-dark mb-2;
+  }
+
+  .form-error {
+    @apply mt-1 text-sm text-red-500;
+  }
+
+  .form-select {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-light focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors appearance-none bg-white;
+  }
+}
+
+/* Global loading animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Selection color */
+::selection {
+  @apply bg-primary/20 text-primary dark:text-white;
 }
