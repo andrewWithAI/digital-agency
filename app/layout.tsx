@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Thompson Digital Solutions | Transforming Ideas into Digital Excellence",
+  title: "Talty Tech Solutions | Transforming Ideas into Digital Excellence",
   description: "We craft innovative digital solutions that drive real business growth. Expert web development, digital strategy, and technology consulting services.",
   keywords: "web development, digital solutions, technology consulting, digital transformation, web design",
 };
@@ -77,7 +77,7 @@ export default function RootLayout({
               </div>
             </div>
             <div className="mt-16 pt-8 border-t border-white/10 text-sm opacity-80">
-              <p>&copy; {new Date().getFullYear()} Thompson Digital Solutions. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Talty Tech Solutions. All rights reserved.</p>
             </div>
           </div>
         </footer>
