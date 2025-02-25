@@ -1,0 +1,58 @@
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  z-index: 50;
+}
+
+.notificationEnter {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.notificationExit {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+.formInput {
+  transition: all 0.2s ease-in-out;
+}
+
+.formInput:focus {
+  transform: translateY(-2px);
+}
+
+.submitButton {
+  transition: all 0.2s ease-in-out;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}

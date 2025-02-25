@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  # Web application (Next.js frontend)
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - API_URL=http://api:4000
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # API service (Express backend)
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  # Development service for web
+  web-dev:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: builder
+    command: npm run dev --workspace=web
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/web/.next
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://api-dev:4000
+    depends_on:
+      - api-dev
+    restart: unless-stopped
+
+  # Development service for API
+  api-dev:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: builder
+    command: npm run dev --workspace=api
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped

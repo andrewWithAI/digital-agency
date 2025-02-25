@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digital-agency-web
+  labels:
+    app: digital-agency
+    component: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: digital-agency
+      component: web
+  template:
+    metadata:
+      labels:
+        app: digital-agency
+        component: web
+    spec:
+      containers:
+      - name: web
+        image: gcr.io/YOUR_GCP_PROJECT_ID/digital-agency-web:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 15
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: API_URL
+          value: "http://digital-agency-api-service:4000"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digital-agency-api
+  labels:
+    app: digital-agency
+    component: api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: digital-agency
+      component: api
+  template:
+    metadata:
+      labels:
+        app: digital-agency
+        component: api
+    spec:
+      containers:
+      - name: api
+        image: gcr.io/YOUR_GCP_PROJECT_ID/digital-agency-api:latest
+        ports:
+        - containerPort: 4000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "300m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 4000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 4000
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        env:
+        - name: NODE_ENV
+          value: "production"

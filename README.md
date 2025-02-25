@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Digital Agency Monorepo
 
-## Getting Started
+This is a monorepo project built with [Turborepo](https://turbo.build/) containing a [Next.js](https://nextjs.org) frontend and an [Express.js](https://expressjs.com/) backend API.
 
-First, run the development server:
+## Project Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+digital-agency/
+├── apps/
+│   ├── web/           # Next.js frontend application
+│   └── api/           # Express.js backend API
+├── packages/
+│   ├── ui/            # Shared UI components
+│   ├── types/         # Shared TypeScript types
+│   └── config/        # Shared configuration
+├── kubernetes/        # Kubernetes configuration files
+└── docker-compose.yml # Docker Compose configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prerequisites
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Node.js](https://nodejs.org/) v18 or later
+- [npm](https://www.npmjs.com/) v8 or later (project uses npm v10.2.3)
+- [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) (optional, for Docker-based development)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Running Locally
+
+There are two main ways to run this project locally:
+
+### Method 1: Using npm/Node.js Directly
+
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Build shared packages**
+   The monorepo contains shared packages that need to be built first:
+   ```bash
+   npm run build --workspace=types
+   npm run build --workspace=ui
+   npm run build --workspace=config
+   ```
+
+3. **Run the development server**
+   To run both the frontend and backend in development mode:
+   ```bash
+   npm run dev
+   ```
+
+   This will start:
+   - Next.js frontend at http://localhost:3000
+   - Express API at http://localhost:4000
+
+   The frontend uses Turbopack for faster development builds.
+
+### Method 2: Using Docker Compose
+
+1. **Development Mode (with hot-reloading)**
+   To run both services with hot-reloading:
+   ```bash
+   docker-compose up web-dev api-dev
+   ```
+
+   Or run them individually:
+   ```bash
+   # Frontend only
+   docker-compose up web-dev
+
+   # Backend only
+   docker-compose up api-dev
+   ```
+
+   This will:
+   - Mount your local files into the containers
+   - Enable hot-reloading
+   - Make the frontend available at http://localhost:3000
+   - Make the API available at http://localhost:4000
+
+2. **Production Mode**
+   To run optimized production builds:
+   ```bash
+   docker-compose up web api
+   ```
+
+   Or run them individually:
+   ```bash
+   # Frontend only
+   docker-compose up web
+
+   # Backend only
+   docker-compose up api
+   ```
+
+## Available Scripts
+
+- `npm run dev`: Run all applications in development mode
+- `npm run build`: Build all applications and packages
+- `npm run start`: Start all applications in production mode
+- `npm run lint`: Lint all applications and packages
+- `npm run format`: Format code with Prettier
+
+## Technologies
+
+- **Frontend**: Next.js 15 with React 19, Tailwind CSS
+- **Backend**: Express.js with TypeScript
+- **Shared Packages**: Custom UI components, TypeScript types, and configurations
+- **DevOps**: Docker, Kubernetes configurations for deployment
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API
+- [Turborepo Documentation](https://turbo.build/repo/docs) - learn about Turborepo features
+- [Express.js Documentation](https://expressjs.com/) - learn about Express.js
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For detailed deployment instructions, see the [Docker README](./docker-README.md) which includes information about:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Docker configuration
+- Kubernetes deployment
+- Google Cloud Platform setup
+- CI/CD with Cloud Build
